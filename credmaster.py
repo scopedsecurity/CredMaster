@@ -5,10 +5,7 @@ from fire import FireProx
 
 credentials = { 'accounts':[] }
 regions = [
-    'us-east-2', 'us-east-1','us-west-1','us-west-2','eu-west-3',
-    'ap-northeast-1','ap-northeast-2','ap-south-1',
-    'ap-southeast-1','ap-southeast-2','ca-central-1',
-    'eu-central-1','eu-west-1','eu-west-2','sa-east-1',
+    'us-east-2', 'us-east-1','us-west-1','us-west-2'
 ]
 
 lock = threading.Lock()
@@ -57,10 +54,6 @@ def main(args,pargs):
         secret_access_key = aws_dict['secret_access_key']
         profile_name = aws_dict['profile_name']
         session_token = aws_dict['session_token']
-
-    if access_key is None and secret_access_key is None and session_token is None and profile_name is None:
-        log_entry("No FireProx access arguments settings configured, add access keys/session token or fill out config file")
-        return
 
     if args.clean:
         clear_all_apis(access_key, secret_access_key, profile_name, session_token)
