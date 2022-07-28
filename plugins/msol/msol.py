@@ -60,6 +60,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
         else:
             response = resp.json()
             error = response["error_description"]
+	    print(response)
 
             if "AADSTS50126" in error:
                 data_response['success'] = False
@@ -78,7 +79,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
                 data_response['2fa_enabled'] = True
                 data_response['success'] = True
                 data_response['code'] = "2FA Microsoft"
-                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The response indicates MFA (Microsoft) is in use. Proof: {resp.text}"
+                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The response indicates MFA (Microsoft) is in use! Proof: {resp.text}"
 
 
             elif "AADSTS50158" in error:
@@ -86,7 +87,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
                 data_response['2fa_enabled'] = True
                 data_response['success'] = True
                 data_response['code'] = "2FA Other"
-                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The response indicates conditional access (MFA: DUO or other) is in use. Proof: {resp.text}"
+                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The response indicates conditional access (MFA: DUO or other) is in use! Proof: {resp.text}"
 
 
             elif "AADSTS50053" in error:
@@ -99,7 +100,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
                 # User password is expired
                 data_response['change'] = True
                 data_response['success'] = True
-                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The user's password is expired. Proof: {resp.text}"
+                data_response['output'] = f"SUCCESS! {resp.status_code} {username}:{password} - NOTE: The user's password is expired! Proof: {resp.text}"
 
             else:
                 # Unknown errors
