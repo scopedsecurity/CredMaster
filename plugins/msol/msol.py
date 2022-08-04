@@ -60,7 +60,7 @@ def msol_authenticate(url, username, password, useragent, pluginargs):
         else:
             response = resp.json()
             error = response["error_description"]
-	    print(response)
+            print(response)
 
             if "AADSTS50126" in error:
                 data_response['success'] = False
